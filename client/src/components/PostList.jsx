@@ -6,10 +6,10 @@ import { getPosts } from "../store/actions/postsActions.js";
 
 function PostList() {
     const dispatch = useDispatch()
-    const posts = useSelector(state => state.posts.posts)
     useEffect(() => {
         dispatch(getPosts())
-    }, [posts])
+    }, [])
+    let posts = useSelector((reducers) => reducers.posts.posts)
     console.log(posts);
     return (
         <div>

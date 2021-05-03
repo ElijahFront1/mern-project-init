@@ -1,19 +1,14 @@
 import axios from 'axios'
-import { setPosts } from "../reducers/postsReducers.js";
 import { API_URL } from "../../config.js";
 
+let postsURL = `${API_URL}api/posts`
 
-export function getPosts() {
-    return async dispatch => {
-        try {
-            let url = `${API_URL}api/posts`
-            // const response = await axios.get(url);
-            // console.log(response.data);
-            // dispatch(setPosts(response.data))
-            const response = await axios.get(url);
-            dispatch(setPosts(response.data))
-        } catch (e) {
-            alert(e.response.data.message)
-        }
-    }
+const postsPromise = axios.get(postsURL);
+
+export const getPosts = () => (dispatch) => {
+    postsPromise.then((values) => {
+        dispatch(setPosts(values.data))
+    });
 }
+
+export const setPosts = (posts) => ({ type: 'SET_POSTS', payload: posts })
