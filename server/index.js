@@ -4,6 +4,8 @@ import router from './routes/postRouter.js'
 import fileUpload from 'express-fileupload'
 import corsMiddleware from './middleware/cors.middleware.js'
 import authRouter from './routes/authRouter.js'
+import dotenv from "dotenv"
+dotenv.config()
 
 const PORT = 4000;
 const DB_URL = 'mongodb+srv://root:root@cluster0.do9av.mongodb.net/backend-for-beginners-DB?retryWrites=true&w=majority'
