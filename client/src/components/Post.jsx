@@ -1,10 +1,10 @@
-
 import React from 'react'
 
-function Post() {
+function Post({ post }) {
     return (
         <div>
-            {post.title}
+            {post._id}
+            {post.author}
         </div>
     )
 }

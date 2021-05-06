@@ -1,0 +1,16 @@
+.top-info-line {
+    background-color: #fe7223;
+    color: white;
+    height: 38px;
+    align-items: center;
+    & span {
+        padding-right: 33px;
+    }
+    &__phone-mail {
+        display: flex;
+    }
+    &__location-track-currency {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
