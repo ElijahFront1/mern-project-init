@@ -1,43 +1,44 @@
 import React, { useState } from 'react'
 import { Form, Button, Modal } from 'react-bootstrap'
-import { registration } from '../../store/actions/userActions'
+import { useDispatch } from 'react-redux'
+import { login } from '../../store/actions/userActions'
 
-function SignUp() {
 
+function SignIn() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const dispatch = useDispatch()
 
-    const [showSignUp, setShowSignUp] = useState(false);
-    const handleCloseSignUp = () => setShowSignUp(false);
-    const handleShowSignUp = () => setShowSignUp(true);
+    const [showSignIn, setShowSignIn] = useState(false);
+    const handleCloseSignIn = () => setShowSignIn(false);
+    const handleShowSignIn = () => setShowSignIn(true);
 
     return (
         <div>
-            <Button className="mr-2" variant="primary" onClick={handleShowSignUp}>
-                Sign Up
+            <Button className="mr-2" variant="primary" onClick={handleShowSignIn}>
+                Sign in
             </Button>
 
             <Modal
-                show={showSignUp}
-                onHide={handleCloseSignUp}
+                show={showSignIn}
+                onHide={handleCloseSignIn}
                 backdrop="static"
                 keyboard={false}>
                 <Form className="p-2">
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control onChange={(e) => setEmail(e.target.value)}
-                            type="email" placeholder="Enter email" />
+                        <Form.Control type="email" placeholder="Enter email"
+                            onChange={(e) => setEmail(e.target.value)} />
                         <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
+                            Enter your email
                     </Form.Text>
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control onChange={(e) => setPassword(e.target.value)}
-                            type="password"
-                            placeholder="Password" />
+                        <Form.Control type="password" placeholder="Password"
+                            onChange={(e) => setPassword(e.target.value)} />
                         <Form.Text className="text-muted">
-                            Password must not be shorter than 8 characters
+                            Enter your password
                     </Form.Text>
                     </Form.Group>
                     <Form.Group controlId="formBasicCheckbox">
@@ -46,9 +47,10 @@ function SignUp() {
                 </Form>
 
                 <Button className="m-2" variant="primary"
-                    onClick={() => registration(email, password)} >Sign Up
+                    onClick={() => dispatch(login(email, password))}>
+                    Sign In
                 </Button>
-                <Button className="m-2" variant="secondary" onClick={handleCloseSignUp}>
+                <Button className="m-2" variant="secondary" onClick={handleCloseSignIn}>
                     Close
                 </Button>
             </Modal>
@@ -56,6 +58,4 @@ function SignUp() {
     )
 }
 
-export default SignUp
-
-
+export default SignIn

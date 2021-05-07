@@ -16,6 +16,7 @@ class AuthController {
     async registration(req, res) {
         try {
             const errors = validationResult(req)
+            console.log(req.body)
             if (!errors.isEmpty()) {
                 return res.status(400).json({ message: "Registration error", errors })
             }
@@ -35,6 +36,7 @@ class AuthController {
             res.status(400).json({ message: "Registration failed" })
         }
     }
+
     async login(req, res) {
         try {
             const { username, password } = req.body
@@ -47,12 +49,40 @@ class AuthController {
                 return res.status(400).json({ message: "The entered password is incorrect" })
             }
             const token = generateAcessToken(user._id, user.roles)
-            return res.json({ token })
+            return res.json({
+                token,
+                user: {
+                    id: user.id,
+                    username: user.username,
+                    email: user.email,
+                    roles: user.roles
+                }
+            })
         } catch (e) {
             console.log(e);
             res.status(400).json({ message: "Login failed" })
         }
     }
+
+    async auth(req, res) {
+        try {
+            const user = await User.findOne({ _id: req.user.id })
+            const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: "1h" })
+            return res.json({
+                token,
+                user: {
+                    id: user.id,
+                    username: user.username,
+                    email: user.email,
+                    roles: user.roles
+                }
+            })
+        } catch (e) {
+            console.log(e)
+            res.send({ message: "Server error" })
+        }
+    }
+
     async getUsers(req, res) {
         try {
             const users = await User.find()

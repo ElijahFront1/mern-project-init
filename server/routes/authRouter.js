@@ -10,6 +10,7 @@ router.post('/registration', [
     check('password', 'Password cannot be shorter than eight characters').isLength({ min: 8 }),
 ], authController.registration)
 router.post('/login', authController.login)
+router.get('/auth', authMiddleware, authController.auth)
 router.get('/users', roleMiddleware(['ADMIN']), authController.getUsers)
 
 export default router;

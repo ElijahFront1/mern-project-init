@@ -5,7 +5,6 @@ const defaultState: PostState = {
 }
 
 export default function postsReducer(state = defaultState, action: PostAction): PostState {
-    console.log(action.payload);
     switch (action.type) {
         case PostsActionTypes.FETCH_POSTS: return { ...state, posts: action.payload }
         default:
